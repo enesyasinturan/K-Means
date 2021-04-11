@@ -17,8 +17,10 @@ namespace K_Means
         int uzaklik2 = 0;
         int iterasyon = 0;
 
-        int[] sayiDizisi;
+        object[] sayiDizisi = new object[6];
         int veriSayisi = 0;
+
+        List<object> veriListesi = new List<object>();
 
 
         public Form1()
@@ -50,12 +52,46 @@ namespace K_Means
             }
 
             veriSayisi = Convert.ToInt32(comboBoxVeriSayisi.SelectedItem);
-
             Random rnd = new Random();
-            sayiDizisi = Enumerable.Range(1, veriSayisi).ToArray();
 
-            for (int i = 0; i < veriSayisi; i++)
-                sayiDizisi[i] = rnd.Next(1, 100);
+
+            //sayiDizisi = Enumerable.Range(1, veriSayisi).ToArray();
+
+            for(int i=0; i<veriSayisi; i++)
+            {
+                Point veri = new Point();
+
+                veri.X = rnd.Next(1, 100);
+                veri.Y = rnd.Next(1, 100);
+
+                veriListesi.Add(veri);
+
+                chart1.Series["Veriler"].Points.AddXY(veri.X, veri.Y);
+            }
+
+            Point veri1 = new Point();
+            Point veri2 = new Point();
+            Point veri3 = new Point();
+
+            sayiDizisi[0] = veri1;
+            sayiDizisi[1] = veri2;
+            sayiDizisi[2] = veri3;
+
+            veri1.X = rnd.Next(1,100);
+            veri1.Y = rnd.Next(1, 100);
+
+            veri2.X = rnd.Next(1, 100);
+            veri2.Y = rnd.Next(1, 100);
+
+            veri3.X = rnd.Next(1, 100);
+            veri3.Y = rnd.Next(1, 100);
+
+            
+
+           
+
+            //for (int i = 0; i < veriSayisi; i++)
+            //    sayiDizisi[i] = rnd.Next(1, 100);
 
             c1 = rnd.Next(1, 100);
             c2 = rnd.Next(1, 100);
@@ -64,17 +100,21 @@ namespace K_Means
             labelKumeMerkezi2.Text = c2.ToString();
 
 
-            for (int i = 0; i < veriSayisi; i++)
-                listBoxRastgeleSayislar.Items.Add(sayiDizisi[i].ToString());
+            //for (int i = 0; i < veriSayisi; i++)
+            //    listBoxRastgeleSayislar.Items.Add(sayiDizisi[i].ToString());
 
-            for (int i = 0; i < veriSayisi; i++)
-                chart1.Series["Veriler"].Points.Add(sayiDizisi[i]);
+
+            
+            //chart1.Series["Veriler"].Points.AddXY(veri1.X, veri1.Y);
+            //chart1.Series["Veriler"].Points.AddXY(veri2.X, veri2.Y);
+            //chart1.Series["Veriler"].Points.AddXY(veri3.X, veri3.Y);
+
+            //for (int i = 0; i < veriSayisi; i++)
+            //    chart1.Series["Veriler"].Points.Add(sayiDizisi[i]);
 
             chart1.Series["KumeMerkezleri"].Points.Add(c1);
             chart1.Series["KumeMerkezleri"].Points.Add(c2);
 
-            for (int i = 0; i < veriSayisi; i++)
-                listBox1.Items.Add(chart1.Series["Veriler"].Points);
         }
 
         private void buttonKumele_Click_1(object sender, EventArgs e)
@@ -90,8 +130,8 @@ namespace K_Means
             for (int i = 0; i < listBoxRastgeleSayislar.Items.Count; i++)
             {
 
-                uzaklik1 = Math.Abs(sayiDizisi[i] - c1);
-                uzaklik2 = Math.Abs(sayiDizisi[i] - c2);
+                //uzaklik1 = Math.Abs(sayiDizisi[i] - c1);
+                //uzaklik2 = Math.Abs(sayiDizisi[i] - c2);
 
                 if (uzaklik1 < uzaklik2)
                     listBoxKume1.Items.Add(sayiDizisi[i]);
