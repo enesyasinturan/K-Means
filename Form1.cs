@@ -37,7 +37,7 @@ namespace K_Means
 
         void chartTemizle()
         {
-            listBoxVeriler.Items.Clear();
+            
             listBoxKume1.Items.Clear();
             listBoxKume2.Items.Clear();
 
@@ -56,11 +56,14 @@ namespace K_Means
         private void Form1_Load(object sender, EventArgs e)
         {
             nudKumeSayisi.Maximum = nudVeriSayisi.Value;
+            buttonKumele.Enabled = false;
         }
 
 
         public void btnRastgeleUret_Click(object sender, EventArgs e)
         {
+            buttonKumele.Enabled = true;
+            listBoxVeriler.Items.Clear();
             chartTemizle();
             veriListesi.Clear();
             iterasyon = 0;
