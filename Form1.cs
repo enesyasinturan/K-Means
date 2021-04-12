@@ -11,17 +11,41 @@ namespace K_Means
 {
     public partial class Form1 : Form
     {
-        int c1;
-        int c2;
+        int minDeger;
+        int maksDeger;
         int uzaklik1 = 0;
         int uzaklik2 = 0;
         int iterasyon = 0;
-
-        object[] sayiDizisi = new object[6];
         int veriSayisi = 0;
+        int xToplam1 = 0;
+        int yToplam1 = 0;
+        int xToplam2 = 0;
+        int yToplam2 = 0;
+        int yeniX1 = 0;
+        int yeniY1 = 0;
+        int yeniX2 = 0;
+        int yeniY2 = 0;
 
         List<object> veriListesi = new List<object>();
+        List<object> Kume1 = new List<object>();
+        List<object> Kume2 = new List<object>();
+        Point kumeMerkezi1 = new Point();
+        Point kumeMerkezi2 = new Point();
+        Point veri = new Point();
 
+        Random rnd = new Random();
+
+        void chartTemizle()
+        {
+            listBoxVeriler.Items.Clear();
+            listBoxKume1.Items.Clear();
+            listBoxKume2.Items.Clear();
+
+            foreach (var series in chart1.Series)
+            {
+                series.Points.Clear();
+            }
+        }
 
         public Form1()
         {
@@ -31,150 +55,158 @@ namespace K_Means
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string[] veri = { "5", "10", "25", "50", "75", "100", "150", "200" };
-            comboBoxVeriSayisi.Items.AddRange(veri);
-            comboBoxVeriSayisi.SelectedIndex = 7;
+            nudKumeSayisi.Maximum = nudVeriSayisi.Value;
         }
 
-        private void NoktaNesnesi(int v1, int v2)
+
+        public void btnRastgeleUret_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
+            chartTemizle();
+            veriListesi.Clear();
 
-        private void btnRastgeleUret_Click(object sender, EventArgs e)
-        {
-            listBoxRastgeleSayislar.Items.Clear();
+            veriSayisi = Convert.ToInt32(nudVeriSayisi.Value);
 
-            //Chart Temizleme
-            foreach (var series in chart1.Series)
+            minDeger = Convert.ToInt32(nudMinDeger.Value);
+            maksDeger = Convert.ToInt32(nudMaksDeger.Value);
+
+            for (int i=0; i<veriSayisi; i++)
             {
-                series.Points.Clear();
-            }
-
-            veriSayisi = Convert.ToInt32(comboBoxVeriSayisi.SelectedItem);
-            Random rnd = new Random();
-
-
-            //sayiDizisi = Enumerable.Range(1, veriSayisi).ToArray();
-
-            for(int i=0; i<veriSayisi; i++)
-            {
-                Point veri = new Point();
-
-                veri.X = rnd.Next(1, 100);
-                veri.Y = rnd.Next(1, 100);
+                veri.X = rnd.Next(minDeger, maksDeger);
+                veri.Y = rnd.Next(minDeger, maksDeger);
 
                 veriListesi.Add(veri);
 
                 chart1.Series["Veriler"].Points.AddXY(veri.X, veri.Y);
+
+                listBoxVeriler.Items.Add(i+1);
+                listBoxVeriler.Items.Add("X - Y");
+                listBoxVeriler.Items.Add(veri);
+                listBoxVeriler.Items.Add("");
             }
 
-            Point veri1 = new Point();
-            Point veri2 = new Point();
-            Point veri3 = new Point();
+            kumeMerkezi1.X = rnd.Next(minDeger, maksDeger);
+            kumeMerkezi1.Y = rnd.Next(minDeger, maksDeger);
 
-            sayiDizisi[0] = veri1;
-            sayiDizisi[1] = veri2;
-            sayiDizisi[2] = veri3;
+            labelKumeMerkezi1.Text = kumeMerkezi1.ToString();
 
-            veri1.X = rnd.Next(1,100);
-            veri1.Y = rnd.Next(1, 100);
-
-            veri2.X = rnd.Next(1, 100);
-            veri2.Y = rnd.Next(1, 100);
-
-            veri3.X = rnd.Next(1, 100);
-            veri3.Y = rnd.Next(1, 100);
-
-            
-
-           
-
-            //for (int i = 0; i < veriSayisi; i++)
-            //    sayiDizisi[i] = rnd.Next(1, 100);
-
-            c1 = rnd.Next(1, 100);
-            c2 = rnd.Next(1, 100);
-
-            labelKumeMerkezi1.Text = c1.ToString();
-            labelKumeMerkezi2.Text = c2.ToString();
+            chart1.Series["KumeMerkezleri"].Points.AddXY(kumeMerkezi1.X, kumeMerkezi1.Y);
 
 
-            //for (int i = 0; i < veriSayisi; i++)
-            //    listBoxRastgeleSayislar.Items.Add(sayiDizisi[i].ToString());
 
+            kumeMerkezi2.X = rnd.Next(minDeger, maksDeger);
+            kumeMerkezi2.Y = rnd.Next(minDeger, maksDeger);
 
-            
-            //chart1.Series["Veriler"].Points.AddXY(veri1.X, veri1.Y);
-            //chart1.Series["Veriler"].Points.AddXY(veri2.X, veri2.Y);
-            //chart1.Series["Veriler"].Points.AddXY(veri3.X, veri3.Y);
+            labelKumeMerkezi2.Text = kumeMerkezi2.ToString();
 
-            //for (int i = 0; i < veriSayisi; i++)
-            //    chart1.Series["Veriler"].Points.Add(sayiDizisi[i]);
-
-            chart1.Series["KumeMerkezleri"].Points.Add(c1);
-            chart1.Series["KumeMerkezleri"].Points.Add(c2);
-
+            chart1.Series["KumeMerkezleri"].Points.AddXY(kumeMerkezi2.X, kumeMerkezi2.Y);
         }
 
-        private void buttonKumele_Click_1(object sender, EventArgs e)
+        public void buttonKumele_Click_1(object sender, EventArgs e)
         {
-            listBoxKume1.Items.Clear();
-            listBoxKume2.Items.Clear();
+            Kume1.Clear();
+            Kume2.Clear();
 
-            foreach (var series in chart1.Series)
+            chartTemizle();
+
+            foreach(Point veri in veriListesi)
             {
-                series.Points.Clear();
-            }
+                uzaklik1 = Convert.ToInt32(Math.Sqrt(Math.Pow((veri.X - kumeMerkezi1.X), 2) + Math.Pow((veri.Y - kumeMerkezi1.Y), 2)));
+                uzaklik2 = Convert.ToInt32(Math.Sqrt(Math.Pow((veri.X - kumeMerkezi2.X), 2) + Math.Pow((veri.Y - kumeMerkezi2.Y), 2)));
 
-            for (int i = 0; i < listBoxRastgeleSayislar.Items.Count; i++)
-            {
+                int x1 = kumeMerkezi1.X - uzaklik1;
+                int y1 = kumeMerkezi1.Y - uzaklik1;
 
-                //uzaklik1 = Math.Abs(sayiDizisi[i] - c1);
-                //uzaklik2 = Math.Abs(sayiDizisi[i] - c2);
+                int x2 = kumeMerkezi2.X - uzaklik1;
+                int y2 = kumeMerkezi2.X - uzaklik1;
 
                 if (uzaklik1 < uzaklik2)
-                    listBoxKume1.Items.Add(sayiDizisi[i]);
+                {
+                    Kume1.Add(veri);
+                    chart1.Series["Kume1"].Points.AddXY(veri.X, veri.Y);
+                    listBoxKume1.Items.Add(veri);
+                }
+
                 else if (uzaklik2 < uzaklik1)
-                    listBoxKume2.Items.Add(sayiDizisi[i]);
-                //else if (uzaklik1 == uzaklik2)
-                //    listBoxKume2.Items.Add(sayiDizisi[i]);
+                {
+                    Kume2.Add(veri);
+                    chart1.Series["Kume2"].Points.AddXY(veri.X, veri.Y);
+                    listBoxKume2.Items.Add(veri);
+                }
+
+                else if (uzaklik1 == uzaklik2)
+                {
+                    Kume1.Add(veri);
+                    chart1.Series["Kume1"].Points.AddXY(veri.X, veri.Y);
+                    listBoxKume1.Items.Add(veri);
+                }
             }
 
-            int toplam1 = 0;
-            int toplam2 = 0;
+            labelKumeSayisi1.Text = Kume1.Count.ToString();
+            labelKumeSayisi2.Text = Kume2.Count.ToString();
 
-            for (int i = 0; i < listBoxKume1.Items.Count; i++)
+            
+            
+
+            foreach (Point veri1 in Kume1)
             {
-                toplam1 += Convert.ToInt32(listBoxKume1.Items[i]);
+                xToplam1 = xToplam1 + veri1.X;
+                yToplam1 = yToplam1 + veri1.Y;
             }
 
-            c1 = toplam1 / listBoxRastgeleSayislar.Items.Count;
+            labelToplamx1.Text = xToplam1.ToString();
+            labelToplamy1.Text = yToplam1.ToString();
 
-            for (int i = 0; i < listBoxKume2.Items.Count; i++)
+            int yeniX1 = Convert.ToInt32(xToplam1 / Kume1.Count);
+            int yeniY1 = Convert.ToInt32(yToplam1 / Kume1.Count);
+
+            kumeMerkezi1.X = yeniX1;
+            kumeMerkezi1.Y = yeniY1;
+
+            labelKumeMerkezi1.Text = kumeMerkezi1.ToString();
+            chart1.Series["KumeMerkezleri"].Points.AddXY(kumeMerkezi1.X, kumeMerkezi1.Y);
+
+
+
+            foreach (Point veri2 in Kume2)
             {
-                toplam2 += Convert.ToInt32(listBoxKume2.Items[i]);
+                xToplam2 += veri2.X;
+                yToplam2 += veri2.Y;
             }
 
-            c2 = toplam2 / listBoxRastgeleSayislar.Items.Count;
+            labelToplamx2.Text = xToplam2.ToString();
+            labelToplamy2.Text = yToplam2.ToString();
 
-            labelKumeMerkezi1.Text = c1.ToString();
-            labelKumeMerkezi2.Text = c2.ToString();
+            int yeniX2 = Convert.ToInt32(xToplam2 / Kume2.Count);
+            int yeniY2 = Convert.ToInt32(yToplam2 / Kume2.Count);
+
+            kumeMerkezi2.X = yeniX2;
+            kumeMerkezi2.Y = yeniY2;
+
+            labelKumeMerkezi2.Text = kumeMerkezi2.ToString();
+            chart1.Series["KumeMerkezleri"].Points.AddXY(kumeMerkezi2.X, kumeMerkezi2.Y);
 
             iterasyon++;
             labeliterasyonSayisi.Text = iterasyon.ToString();
+        }
 
-            labelKumeSayisi1.Text = listBoxKume1.Items.Count.ToString();
-            labelKumeSayisi2.Text = listBoxKume2.Items.Count.ToString();
+        private void nudVeriSayisi_ValueChanged(object sender, EventArgs e)
+        {
+            nudKumeSayisi.Maximum = nudVeriSayisi.Value;
+        }
 
-            for (int i = 0; i < listBoxKume1.Items.Count; i++)
-                chart1.Series["Kume1"].Points.Add(Convert.ToInt32(listBoxKume1.Items[i]));
+        private void nudMinDeger_ValueChanged(object sender, EventArgs e)
+        {
+            nudMaksDeger.Minimum = nudMinDeger.Value;
+        }
 
-            for (int i = 0; i < listBoxKume2.Items.Count; i++)
-                chart1.Series["Kume2"].Points.Add(Convert.ToInt32(listBoxKume2.Items[i]));
+        private void button1_Click(object sender, EventArgs e)
+        {
 
-            chart1.Series["KumeMerkezleri"].Points.Add(c1);
-            chart1.Series["KumeMerkezleri"].Points.Add(c2);
+            Kume1.Clear();
+            Kume2.Clear();
+
+            listBoxKume1.Items.Add(Kume1);
+            listBoxKume2.Items.Add(Kume2);
         }
     }
 }
