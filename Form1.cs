@@ -63,6 +63,8 @@ namespace K_Means
         {
             chartTemizle();
             veriListesi.Clear();
+            iterasyon = 0;
+            labeliterasyonSayisi.Text = iterasyon.ToString();
 
             veriSayisi = Convert.ToInt32(nudVeriSayisi.Value);
 
@@ -144,8 +146,9 @@ namespace K_Means
             labelKumeSayisi1.Text = Kume1.Count.ToString();
             labelKumeSayisi2.Text = Kume2.Count.ToString();
 
-            
-            
+
+            xToplam1 = 0;
+            yToplam1 = 0;
 
             foreach (Point veri1 in Kume1)
             {
@@ -166,6 +169,8 @@ namespace K_Means
             chart1.Series["KumeMerkezleri"].Points.AddXY(kumeMerkezi1.X, kumeMerkezi1.Y);
 
 
+            xToplam2 = 0;
+            yToplam2 = 0;
 
             foreach (Point veri2 in Kume2)
             {

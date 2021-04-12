@@ -62,11 +62,12 @@ namespace K_Means
             this.labelToplamy1 = new System.Windows.Forms.Label();
             this.labelToplamx2 = new System.Windows.Forms.Label();
             this.labelToplamy2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelKumeMerkezi2 = new System.Windows.Forms.Label();
             this.labelKumeMerkezi1 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinDeger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaksDeger)).BeginInit();
@@ -199,7 +200,7 @@ namespace K_Means
             // labelKumeSayisi2
             // 
             this.labelKumeSayisi2.AutoSize = true;
-            this.labelKumeSayisi2.Location = new System.Drawing.Point(559, 224);
+            this.labelKumeSayisi2.Location = new System.Drawing.Point(583, 224);
             this.labelKumeSayisi2.Name = "labelKumeSayisi2";
             this.labelKumeSayisi2.Size = new System.Drawing.Size(35, 13);
             this.labelKumeSayisi2.TabIndex = 28;
@@ -217,7 +218,7 @@ namespace K_Means
             // labelKumeSayisi1
             // 
             this.labelKumeSayisi1.AutoSize = true;
-            this.labelKumeSayisi1.Location = new System.Drawing.Point(421, 227);
+            this.labelKumeSayisi1.Location = new System.Drawing.Point(438, 224);
             this.labelKumeSayisi1.Name = "labelKumeSayisi1";
             this.labelKumeSayisi1.Size = new System.Drawing.Size(35, 13);
             this.labelKumeSayisi1.TabIndex = 26;
@@ -238,9 +239,9 @@ namespace K_Means
             this.labeliterasyonSayisi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.labeliterasyonSayisi.Location = new System.Drawing.Point(729, 108);
             this.labeliterasyonSayisi.Name = "labeliterasyonSayisi";
-            this.labeliterasyonSayisi.Size = new System.Drawing.Size(41, 13);
+            this.labeliterasyonSayisi.Size = new System.Drawing.Size(19, 13);
             this.labeliterasyonSayisi.TabIndex = 30;
-            this.labeliterasyonSayisi.Text = "label3";
+            this.labeliterasyonSayisi.Text = "---";
             // 
             // label8
             // 
@@ -372,7 +373,7 @@ namespace K_Means
             // labelToplamx1
             // 
             this.labelToplamx1.AutoSize = true;
-            this.labelToplamx1.Location = new System.Drawing.Point(421, 263);
+            this.labelToplamx1.Location = new System.Drawing.Point(428, 263);
             this.labelToplamx1.Name = "labelToplamx1";
             this.labelToplamx1.Size = new System.Drawing.Size(35, 13);
             this.labelToplamx1.TabIndex = 41;
@@ -381,7 +382,7 @@ namespace K_Means
             // labelToplamy1
             // 
             this.labelToplamy1.AutoSize = true;
-            this.labelToplamy1.Location = new System.Drawing.Point(421, 290);
+            this.labelToplamy1.Location = new System.Drawing.Point(428, 290);
             this.labelToplamy1.Name = "labelToplamy1";
             this.labelToplamy1.Size = new System.Drawing.Size(35, 13);
             this.labelToplamy1.TabIndex = 42;
@@ -404,16 +405,6 @@ namespace K_Means
             this.labelToplamy2.Size = new System.Drawing.Size(35, 13);
             this.labelToplamy2.TabIndex = 44;
             this.labelToplamy2.Text = "label3";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(658, 146);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 45;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -451,16 +442,35 @@ namespace K_Means
             this.labelKumeMerkezi1.TabIndex = 48;
             this.labelKumeMerkezi1.Text = "Küme Merkezi 1";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(370, 263);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(52, 13);
+            this.label11.TabIndex = 50;
+            this.label11.Text = "Toplam X";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(370, 290);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(52, 13);
+            this.label12.TabIndex = 51;
+            this.label12.Text = "Toplam Y";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 672);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.labelKumeMerkezi2);
             this.Controls.Add(this.labelKumeMerkezi1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelToplamy2);
             this.Controls.Add(this.labelToplamx2);
             this.Controls.Add(this.labelToplamy1);
@@ -531,11 +541,12 @@ namespace K_Means
         private System.Windows.Forms.Label labelToplamy1;
         private System.Windows.Forms.Label labelToplamx2;
         private System.Windows.Forms.Label labelToplamy2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelKumeMerkezi2;
         private System.Windows.Forms.Label labelKumeMerkezi1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }
 
