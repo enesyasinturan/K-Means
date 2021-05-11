@@ -22,15 +22,11 @@ namespace K_Means
         List<Point> veriListesi = new List<Point>();
 
         Point kumeMerkez = new Point();
-        List<Point> kumeMerkezListesi = new List<Point>();
 
         List<Point> kume = new List<Point>();
         List<List<Point>> kumeListesi = new List<List<Point>>();
 
         List<double> uzakliklar = new List<double>();
-
-        Dictionary<int, Point> keyVeMerkez = new Dictionary<int, Point>();
-        
 
         Random rnd = new Random();
 
@@ -61,8 +57,6 @@ namespace K_Means
             nudKumeSayisi.Minimum = 2;
 
             this.WindowState = FormWindowState.Maximized;
-
-            
         }
 
 
@@ -84,7 +78,6 @@ namespace K_Means
             veriListesi.Clear();
             kumeListesi.Clear();
             uzakliklar.Clear();
-            keyVeMerkez.Clear();
 
             iterasyon = 0;
             labeliterasyonSayisi.Text = iterasyon.ToString();
@@ -137,8 +130,6 @@ namespace K_Means
                 kumeMerkez.X = rnd.Next(minDeger, maksDeger);
                 kumeMerkez.Y = rnd.Next(minDeger, maksDeger);
 
-                kumeMerkezListesi.Add(kumeMerkez);
-                keyVeMerkez.Add(i, kumeMerkez);
 
 
                 //********************************************//
@@ -154,13 +145,6 @@ namespace K_Means
                 listBoxKumeMerkezleri.Items.Add(kumeMerkez);
                 listBoxKumeMerkezleri.Items.Add("");
             }
-
-            
-            //foreach (var item in kumeListesi)
-            //{
-            //    MessageBox.Show(item[0].ToString());
-                
-            //}
         }
 
         private void buttonKumele_Click(object sender, EventArgs e)
@@ -305,11 +289,7 @@ namespace K_Means
 
                 
                 l++;
-                
             }
-
-            
-            
         }
 
         
